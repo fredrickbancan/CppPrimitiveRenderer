@@ -30,3 +30,14 @@
 *.exe
 *.out
 *.app
+
+/lib
+CppPrimitiveRenderer/.vs/CppPrimitiveRenderer/v16/Solution.VC.db-wal
+CppPrimitiveRenderer/.vs/CppPrimitiveRenderer/v16/Solution.VC.db-shm
+CppPrimitiveRenderer/.vs/CppPrimitiveRenderer/v16/Solution.VC.db
+CppPrimitiveRenderer/.vs/CppPrimitiveRenderer/v16/ipch/AutoPCH/e8d8aab785f100ac/MAIN.ipch
+CppPrimitiveRenderer/.vs/CppPrimitiveRenderer/v16/ipch/AutoPCH/64820b5ec1e30fb4/DUAL_QUATERNION.ipch
+CppPrimitiveRenderer/.vs/CppPrimitiveRenderer/v16/Browse.VC.opendb
+CppPrimitiveRenderer/.vs/CppPrimitiveRenderer/v16/Browse.VC.db-wal
+CppPrimitiveRenderer/.vs/CppPrimitiveRenderer/v16/Browse.VC.db-shm
+CppPrimitiveRenderer/.vs/CppPrimitiveRenderer/v16/Browse.VC.db
