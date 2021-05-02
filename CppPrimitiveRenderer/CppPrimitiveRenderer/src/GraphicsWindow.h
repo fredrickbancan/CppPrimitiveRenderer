@@ -4,11 +4,14 @@ class GraphicsWindow
 public:
 	GraphicsWindow(int windowWidth, int windowHeight, const char* title);
 	~GraphicsWindow();
-	void init();
+	bool init();
 	void beginRenderRequests();
 	void endRenderRequests();
 	void drawAll();
+	bool isWindowBeingClosed();
 	void close();
+
+	struct GLFWwindow* getGLFWWindowHandle() const { return windowHandle; }
 private:
 	
 	bool isClosing = false;

@@ -1,4 +1,6 @@
 #pragma once
+#include "Batch.h"
+#include <unordered_map>
 class Renderer
 {
 public:
@@ -12,5 +14,6 @@ public:
 private:
 	class Logger* logger = nullptr;
 	bool hasInitialized = false;
+	std::unordered_map<int, Batch> batches;
 };
 

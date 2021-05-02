@@ -2,28 +2,24 @@
 #include <iostream>
 using namespace std;
 
-template <typename T>
-void Logger::notify(T o)
+void Logger::notify(const char* msg)
 {
-	cout << "[CPPPR] " << o << endl;
+	cout << "[CPPPR] " << msg << endl;
 }
 
-template <typename T, typename T2>
-void Logger::notify2(T o, T2 o2)
+void Logger::notify2(const char* msg1, const char* msg2)
 {
-	cout << "[CPPPR] " << o << " " << o2 << endl;
+	cout << "[CPPPR] " << msg1 << " " << msg2 << endl;
 }
 
-template <typename T>
-void Logger::errorPrint(T o)
+void Logger::errorPrint(const char* msg)
 {
-	cout << "[CPPPR] Error!: " << o << endl;
-	cin.get();
+	cout << "[CPPPR] Error!: " << msg << endl;
+	system("PAUSE");
 }
 
-template <typename T, typename T2>
-void Logger::errorPrint2(T o, T2 o2)
+void Logger::errorPrint2(const char* msg1, const char* msg2)
 {
-	cout << "[CPPPR] Error!: " << o << " " << o2 << endl;
-	cin.get();
+	cout << "[CPPPR] Error!: " << msg1 << " " << msg2 << endl;
+	system("PAUSE");
 }

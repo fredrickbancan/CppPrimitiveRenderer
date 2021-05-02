@@ -1,3 +1,4 @@
+#include <GLFW/glfw3.h>
 #include "GraphicsWindow.h"
 #include "rendering/Renderer.h"
 #include "Logger.h"
@@ -14,21 +15,22 @@ GraphicsWindow::~GraphicsWindow()
 	delete logger;
 }
 
-void GraphicsWindow::init()
+bool GraphicsWindow::init()
 {
 	if (hasInitialized)
 	{
 		logger->errorPrint("init() called on an already initialized GraphicsWindow object!");
-		return;
+		return false;
 	}
 	logger->notify("Initializing Graphics Window...");
-	renderer->init(currentWidth, currentHeight, title);
-	if (!renderer)
+	windowHandle = renderer->init(currentWidth, currentHeight, title);
+	if (!windowHandle)
 	{
 		close();
-		return;
+		return false;
 	}
 	hasInitialized = true;
+	return true;
 }
 
 void GraphicsWindow::beginRenderRequests()
@@ -58,12 +60,24 @@ void GraphicsWindow::drawAll()
 		logger->errorPrint("drawAll() called on a closing GraphicsWindow object!");
 		return;
 	}
+
 	renderer->drawAll();
+	/* Swap front and back buffers */
+	glfwSwapBuffers(windowHandle);
+	/* Poll for and process events */
+	glfwPollEvents();
+}
+
+bool GraphicsWindow::isWindowBeingClosed()
+{
+	if (isClosing) return true;
+	return glfwWindowShouldClose(windowHandle) > 0;
 }
 
 void GraphicsWindow::close()
 {
 	logger->notify("Closing graphics window..");
 	isClosing = true;
+	glfwDestroyWindow(windowHandle);
 	renderer->close();
 }

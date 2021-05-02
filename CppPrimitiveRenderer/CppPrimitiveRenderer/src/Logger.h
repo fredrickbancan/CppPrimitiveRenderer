@@ -2,12 +2,8 @@
 class Logger
 {
 public:
-	template <typename T>
-	void notify(T o);
-	template <typename T, typename T2>
-	void notify2(T o, T2 o2);
-	template <typename T>
-	void errorPrint(T o);
-	template <typename T, typename T2>
-	void errorPrint2(T o, T2 o2);
+	void notify(const char* msg);
+	void notify2(const char* msg1, const char* msg2);
+	void errorPrint(const char* msg);
+	void errorPrint2(const char* msg1, const char* msg);
 };

@@ -160,11 +160,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger.cpp" />
+    <ClCompile Include="src\rendering\Batch.cpp" />
+    <ClCompile Include="src\rendering\Batch_POINT_SPHERES.cpp" />
+    <ClCompile Include="src\rendering\Camera.cpp" />
     <ClCompile Include="src\rendering\Renderer.cpp" />
     <ClCompile Include="src\GraphicsWindow.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\rendering\Shaders.cpp" />
+    <ClCompile Include="src\rendering\VertexArrayObject.cpp" />
+    <ClCompile Include="src\rendering\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\rendering\Batch.h" />
+    <ClInclude Include="src\rendering\Batch_POINT_SPHERES.h" />
+    <ClInclude Include="src\rendering\Camera.h" />
+    <ClInclude Include="src\rendering\PointSphere.h" />
     <ClInclude Include="src\rendering\Renderer.h" />
     <ClInclude Include="src\GraphicsWindow.h" />
     <ClInclude Include="src\glm\common.hpp" />
@@ -449,6 +459,11 @@
     <ClInclude Include="src\glm\vec3.hpp" />
     <ClInclude Include="src\glm\vec4.hpp" />
     <ClInclude Include="src\glm\vector_relational.hpp" />
+    <ClInclude Include="src\rendering\Shaders.h" />
+    <ClInclude Include="src\rendering\VertexArrayObject.h" />
+    <ClInclude Include="src\rendering\VertexBuffer.h" />
+    <ClInclude Include="src\rendering\VertexBufferLayout.h" />
+    <ClInclude Include="src\RenderTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\glm\detail\func_common.inl" />
