@@ -1,7 +1,5 @@
 #pragma once
-#include <fstream>
 #include <string>
-#include <sstream>
 #include <unordered_map>
 #include "../glm/mat4x4.hpp"
 #include "../glm/vec4.hpp"
@@ -56,13 +54,13 @@ public:
     void bind() const;
     void unBind();
     void setUniform4f(const std::string& name, float v0, float v1, float v2, float v3);
-    void setUniform4f(const std::string& name, glm::vec4 vec);
+    void setUniform4f(const std::string& name, glm::vec4& vec);
     void setUniform3f(const std::string& name, float v0, float v1, float v2);
-    void setUniform3f(const std::string& name, glm::vec3 vec);
+    void setUniform3f(const std::string& name, glm::vec3& vec);
     void setUniform1i(const std::string& name, int value);
     void setUniform1f(const std::string& name, float value);
-    void setUniformMat4f(const std::string& name, const glm::mat4 matrix );
-    void setUniformMat3f(const std::string& name, const glm::mat3 matrix );
+    void setUniformMat4f(const std::string& name, const glm::mat4& matrix );
+    void setUniformMat3f(const std::string& name, const glm::mat3& matrix );
     void setUniformMat4fArray(const std::string& name, int count, const float* begin);
     int getUniformLocation(const std::string& name);
     unsigned int getShaderProgramId();

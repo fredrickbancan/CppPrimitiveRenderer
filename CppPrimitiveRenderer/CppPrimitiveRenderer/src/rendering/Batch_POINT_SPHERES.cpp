@@ -1,6 +1,9 @@
 #include "Batch_POINT_SPHERES.h"
 #include "VertexArrayObject.h"
 #include "GLFW/glfw3.h"
+#include "Shaders.h"
+
+Shader* Batch_POINT_SPHERES::batchShader = nullptr;
 
 Batch_POINT_SPHERES::Batch_POINT_SPHERES() : Batch(RenderTypes::POINT_SPHERES)
 {
@@ -41,8 +44,22 @@ void Batch_POINT_SPHERES::updateUniforms(glm::mat4x4 proj, glm::mat4x4 view, flo
 
 void Batch_POINT_SPHERES::drawBatch()
 {
+	batchShader->bind();
 	vao->bind();
-	glDrawArrays(GL_POINTS, 0, addedItter);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+}
+
+void Batch_POINT_SPHERES::loadShader(class Logger* loggerRef)
+{
+	if (batchShader != nullptr)return;
+	batchShader = new Shader("res/HelloTriangle.shader", loggerRef);
+}
+
+void Batch_POINT_SPHERES::deleteShader()
+{
+	if (batchShader == nullptr)return;
+	delete batchShader;
+	batchShader = nullptr;
 }
 
 void Batch_POINT_SPHERES::buildBatch()

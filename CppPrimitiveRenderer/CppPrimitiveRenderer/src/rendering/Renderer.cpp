@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include "Renderer.h"
 #include "../Logger.h"
+#include "BatchUtil.h"
 Renderer::Renderer()
 {
     logger = new Logger();
@@ -44,6 +45,9 @@ GLFWwindow* Renderer::init(int windowWidth, int windowHeight, const char* title)
     }
    logger->notify2("GLEW initialized with OpenGL Version:", glfwGetVersionString());
    hasInitialized = true; 
+
+   BatchUtil::loadAllShaders(logger);
+
    return result;
 }
 
@@ -85,6 +89,9 @@ void Renderer::close()
 {
     if (!hasInitialized)return;
     logger->notify("un-initializing rendering...");
+
+    BatchUtil::deleteAllShaders();
+
     for (std::unordered_map<int, Batch>::iterator i = batches.begin(); i != batches.end(); i++)
     {
         i->second.deleteBatch();

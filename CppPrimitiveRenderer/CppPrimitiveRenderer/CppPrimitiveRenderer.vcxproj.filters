@@ -45,6 +45,9 @@
     <ClCompile Include="src\rendering\Shaders.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\rendering\BatchUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\glm\detail\_features.hpp">
@@ -924,6 +927,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\rendering\Shaders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\BatchUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

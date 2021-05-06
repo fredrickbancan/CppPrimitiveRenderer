@@ -13,9 +13,12 @@ public:
 	void updateBuffers() override;
 	void updateUniforms(glm::mat4x4 proj, glm::mat4x4 view, float lerpFactor = 1.0F) override;
 	void drawBatch() override;
+	static void loadShader(class Logger* loggerRef);
+	static void deleteShader();
 protected:
 	void buildBatch() override;
 private:
 	std::vector<PointSphere> data;
 	int addedItter = 0;
+	static class Shader* batchShader;
 };
