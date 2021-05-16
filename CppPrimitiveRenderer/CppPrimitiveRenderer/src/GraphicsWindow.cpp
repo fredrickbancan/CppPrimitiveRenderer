@@ -1,11 +1,13 @@
-#include <GLFW/glfw3.h>
 #include "GraphicsWindow.h"
 #include "rendering/Renderer.h"
+#include "rendering/Camera.h"
 #include "Logger.h"
+using namespace glm;
 GraphicsWindow::GraphicsWindow(int windowWidth, int windowHeight, const char* title) : currentWidth(windowWidth), currentHeight(windowHeight), title(title)
 {
 	renderer = new Renderer();
 	logger = new Logger();
+	viewer = new Camera({ 0,0,0 });
 }
 
 GraphicsWindow::~GraphicsWindow()
@@ -13,6 +15,7 @@ GraphicsWindow::~GraphicsWindow()
 	if (!isClosing)close();
 	delete renderer;
 	delete logger;
+	delete viewer;
 }
 
 bool GraphicsWindow::init()
@@ -22,7 +25,9 @@ bool GraphicsWindow::init()
 		logger->errorPrint("init() called on an already initialized GraphicsWindow object!");
 		return false;
 	}
+	;
 	logger->notify("Initializing Graphics Window...");
+	logger->notify2("Current working directory is:", "bruh");
 	windowHandle = renderer->init(currentWidth, currentHeight, title);
 	if (!windowHandle)
 	{
@@ -31,6 +36,53 @@ bool GraphicsWindow::init()
 	}
 	hasInitialized = true;
 	return true;
+}
+
+void GraphicsWindow::setViewerFarPlane(float far)
+{
+	viewer->setFarPlane(far);
+}
+
+void GraphicsWindow::setViewerNearPlane(float near)
+{
+	viewer->setNearPlane(near);
+}
+
+void GraphicsWindow::setViewerFov(float fov)
+{
+	viewer->setFov(fov);
+}
+
+void GraphicsWindow::setViewerPos(float x, float y, float z)
+{
+	viewer->setPos({ x,y,z });
+}
+
+void GraphicsWindow::rotateViewerPitch(float degrees)
+{
+	viewer->rotatePitch(degrees);
+}
+
+void GraphicsWindow::rotateViewerYaw(float degrees)
+{
+	viewer->rotateYaw(degrees);
+}
+
+void GraphicsWindow::onFixedUpdate(float timeStep)
+{
+	viewer->onFixedUpdate(timeStep);
+}
+
+void GraphicsWindow::onUpdateAndDraw(float lerpFactor)
+{
+	if (isClosing)
+	{
+		logger->errorPrint("drawAll() called on a closing GraphicsWindow object!");
+		return;
+	}
+	viewer->onUpdate(lerpFactor);
+	renderer->drawAll(viewer, lerpFactor);
+	renderer->swapAndPoll(windowHandle);
 }
 
 void GraphicsWindow::beginRenderRequests()
@@ -43,6 +95,16 @@ void GraphicsWindow::beginRenderRequests()
 	renderer->beginRenderRequests();
 }
 
+void GraphicsWindow::requestRender(int renderType, float posX, float posY, float posZ, float sizeX, float sizeY, float sizeZ, float r, float g, float b, float a)
+{
+	renderer->requestRender(renderType, { posX, posY, posZ }, { sizeX, sizeY, sizeZ }, { r,g,b,a });
+}
+
+void GraphicsWindow::requestRenderLerp(int renderType, float posX, float posY, float posZ, float sizeX, float sizeY, float sizeZ, float r, float g, float b, float a, float prevPosX, float prevPosY, float prevPosZ, float prevSizeX, float prevSizeY, float prevSizeZ, float prevR, float prevG, float prevB, float prevA)
+{
+	renderer->requestRenderLerp(renderType, { posX, posY, posZ }, { sizeX, sizeY, sizeZ }, { r,g,b,a }, { prevPosX, prevPosY, prevPosZ }, { prevSizeX, prevSizeY, prevSizeZ }, { prevR,prevG,prevB,prevA });
+}
+
 void GraphicsWindow::endRenderRequests()
 {
 	if (isClosing)
@@ -53,31 +115,16 @@ void GraphicsWindow::endRenderRequests()
 	renderer->endRenderRequests();
 }
 
-void GraphicsWindow::drawAll()
-{
-	if (isClosing)
-	{
-		logger->errorPrint("drawAll() called on a closing GraphicsWindow object!");
-		return;
-	}
-
-	renderer->drawAll();
-	/* Swap front and back buffers */
-	glfwSwapBuffers(windowHandle);
-	/* Poll for and process events */
-	glfwPollEvents();
-}
-
 bool GraphicsWindow::isWindowBeingClosed()
 {
 	if (isClosing) return true;
-	return glfwWindowShouldClose(windowHandle) > 0;
+	return renderer->shouldWindowClose(windowHandle);
 }
 
 void GraphicsWindow::close()
 {
 	logger->notify("Closing graphics window..");
 	isClosing = true;
-	glfwDestroyWindow(windowHandle);
+	renderer->destroyWindow(windowHandle);
 	renderer->close();
 }

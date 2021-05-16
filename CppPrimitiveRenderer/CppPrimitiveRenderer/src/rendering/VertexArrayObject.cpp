@@ -56,5 +56,5 @@ void VertexArrayObject::resizeBuffer(int index, int newSizeBytes)
 
 void VertexArrayObject::updateBuffer(int index, const void* data, int bytesToUpdate)
 {
-	vbos[index].updateData(data, bytesToUpdate)
+	vbos[index].updateData(data, bytesToUpdate);
 }

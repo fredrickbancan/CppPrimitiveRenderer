@@ -1,4 +1,5 @@
 #include "GraphicsWindow.h"
+#include "RenderTypes.h"
 int main(void)
 {
 	GraphicsWindow* test = new GraphicsWindow(1920, 1080, "Hello World!");
@@ -11,8 +12,10 @@ int main(void)
 	while (!test->isWindowBeingClosed())
 	{
 		test->beginRenderRequests();
+		test->requestRender(RenderTypes::POINT_SPHERES, 0, 0, -10, 10, 10, 10, 1, 1, 1, 1);
 		test->endRenderRequests();
-		test->drawAll();
+		test->onFixedUpdate(0.1F);
+		test->onUpdateAndDraw(1.0F);
 	}
 	test->close();
 	delete test;

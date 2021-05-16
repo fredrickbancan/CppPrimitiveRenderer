@@ -1,13 +1,19 @@
+#define GLEW_STATIC
+#include "GL/glew.h"
+#include "GLFW/glfw3.h"
 #include "Batch_POINT_SPHERES.h"
 #include "VertexArrayObject.h"
-#include "GLFW/glfw3.h"
 #include "Shaders.h"
 
 Shader* Batch_POINT_SPHERES::batchShader = nullptr;
 
-Batch_POINT_SPHERES::Batch_POINT_SPHERES() : Batch(RenderTypes::POINT_SPHERES)
+Batch_POINT_SPHERES::Batch_POINT_SPHERES()
 {
-	
+	renderType = RenderTypes::POINT_SPHERES;
+	vao = new VertexArrayObject();
+	vao->beginBuilding();
+	buildBatch();
+	vao->finishBuilding();
 }
 
 void Batch_POINT_SPHERES::deleteBatch()
@@ -21,9 +27,15 @@ void Batch_POINT_SPHERES::reset()
 	data.clear();
 }
 
-void Batch_POINT_SPHERES::addToBatch(glm::vec3 pos, glm::vec3 size, glm::vec4 color, glm::vec3* prevPos, glm::vec3* prevSize, glm::vec4* prevColor)
+void Batch_POINT_SPHERES::addToBatch(glm::vec3 pos, glm::vec3 size, glm::vec4 color)
 {
 	data.push_back({pos.x, pos.y, pos.z, size.x, color.x, color.y, color.z});
+	addedItter++;
+}
+
+void Batch_POINT_SPHERES::addToBatchLerp(glm::vec3 pos, glm::vec3 size, glm::vec4 color, glm::vec3 prevPos, glm::vec3 prevSize, glm::vec4 prevColor)
+{
+	data.push_back({ pos.x, pos.y, pos.z, size.x, color.x, color.y, color.z });
 	addedItter++;
 }
 
@@ -34,25 +46,34 @@ bool Batch_POINT_SPHERES::hasBeenUsedSinceLastUpdate()
 
 void Batch_POINT_SPHERES::updateBuffers()
 {
+	//increase size of vbo if it is too small
+	if (addedItter * PointSphere::sizeBytes >= currentBufferByteCapacity)
+	{
+		currentBufferByteCapacity += 2048;
+		vao->resizeBuffer(0, currentBufferByteCapacity);
+	}
+
 	vao->updateBuffer(0, (const void*)&data[0], addedItter * PointSphere::sizeBytes);
 }
 
 void Batch_POINT_SPHERES::updateUniforms(glm::mat4x4 proj, glm::mat4x4 view, float lerpFactor)
 {
-
+	batchShader->setUniformMat4f("projMatrix", proj);
+	batchShader->setUniformMat4f("viewMatrix", view);
+	batchShader->setUniform1f("lerpFactor", lerpFactor);
 }
 
 void Batch_POINT_SPHERES::drawBatch()
 {
 	batchShader->bind();
 	vao->bind();
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDrawArrays(GL_POINTS, 0, addedItter);
 }
 
 void Batch_POINT_SPHERES::loadShader(class Logger* loggerRef)
 {
 	if (batchShader != nullptr)return;
-	batchShader = new Shader("res/HelloTriangle.shader", loggerRef);
+	batchShader = new Shader("/res/POINT_SPHERES.shader", loggerRef);
 }
 
 void Batch_POINT_SPHERES::deleteShader()
@@ -68,5 +89,6 @@ void Batch_POINT_SPHERES::buildBatch()
 	vbl.add(GL_FLOAT, 3, false);
 	vbl.add(GL_FLOAT, 1, false);
 	vbl.add(GL_FLOAT, 3, false);
-	vao->addDynamicBuffer(2048, vbl);
+	currentBufferByteCapacity = 2048;
+	vao->addDynamicBuffer(currentBufferByteCapacity, vbl);
 }

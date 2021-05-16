@@ -160,7 +160,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger.cpp" />
-    <ClCompile Include="src\rendering\Batch.cpp" />
     <ClCompile Include="src\rendering\BatchUtil.cpp" />
     <ClCompile Include="src\rendering\Batch_POINT_SPHERES.cpp" />
     <ClCompile Include="src\rendering\Camera.cpp" />

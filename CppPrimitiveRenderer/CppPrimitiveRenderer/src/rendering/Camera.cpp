@@ -22,12 +22,12 @@ Camera::~Camera()
 
 }
 
-void Camera::onWorldFixedUpdate(float timeStep)
+void Camera::onFixedUpdate(float timeStep)
 {
 	prevTickPosition = position;
 }
 
-void Camera::onUpdate(float ptnt, float deltaTime)
+void Camera::onUpdate(float ptnt)
 {
 	updateVectors(ptnt);
 }
@@ -67,6 +67,11 @@ void Camera::setFarPlane(float fp)
 {
 	farPlane = fp;
 	makeProjectionMatrix();
+}
+
+void Camera::setPos(glm::vec3 newPos)
+{
+	position = newPos;
 }
 
 void Camera::makeProjectionMatrix()

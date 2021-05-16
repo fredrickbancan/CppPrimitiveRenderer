@@ -1,6 +1,7 @@
-#include "Shaders.h"
-#include "GLFW/glfw3.h"
+#define GLEW_STATIC
 #include "GL/glew.h"
+#include "GLFW/glfw3.h"
+#include "Shaders.h"
 #include <fstream>
 #include <sstream>
 #include <unordered_map>
@@ -80,7 +81,7 @@ ShaderProgramSource Shader::parseVertFragShaderFile(const std::string& vertFragP
 	std::ifstream stream(vertFragPath);
 	if (!stream.good())
 	{
-		logger->errorPrint2("Error: Could not read fragment/vertex shader from dir: ", vertFragPath.c_str());
+		logger->errorPrint2("Could not read fragment/vertex shader from dir: ", vertFragPath.c_str());
 	}
 	std::string line;
 	std::stringstream ss[2];

@@ -27,9 +27,6 @@
     <ClCompile Include="src\Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\rendering\Batch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\rendering\Batch_POINT_SPHERES.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

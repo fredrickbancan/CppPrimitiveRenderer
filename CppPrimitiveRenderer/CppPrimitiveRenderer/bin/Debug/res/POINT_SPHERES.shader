@@ -5,10 +5,13 @@ layout(location = 0) in vec4 position;
 layout(location = 1) in float size;
 layout(location = 2) in vec4 color;
 
+uniform mat4 projMatrix;
+uniform mat4 viewMatrix;
+uniform float lerpFactor;
 out vec4 vColor;
 void main()
 {
-	gl_Position = position;
+	gl_Position = projMatrix * viewMatrix * position;
 	vColor = color;
 }
 

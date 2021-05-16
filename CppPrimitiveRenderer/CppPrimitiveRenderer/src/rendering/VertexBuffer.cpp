@@ -1,6 +1,7 @@
+#define GLEW_STATIC
+#include "GL/glew.h"
+#include "GLFW/glfw3.h"
 #include "VertexBuffer.h"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 VertexBuffer::VertexBuffer(VertexBufferLayout& layout)
 {
     /*creating a buffer int and telling opengl to use it to store the vertex data.*/

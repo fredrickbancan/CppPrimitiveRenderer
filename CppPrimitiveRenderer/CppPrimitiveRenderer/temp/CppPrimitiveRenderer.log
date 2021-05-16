@@ -1,2 +1,3 @@
-﻿  GraphicsWindow.cpp
+﻿  Batch_POINT_SPHERES.cpp
+C:\Users\disckord\Desktop\Complex Game Systems\workspace\CppPrimitiveRenderer\CppPrimitiveRenderer\CppPrimitiveRenderer\src\RenderTypes.h(6,2): warning C4091: 'static ': ignored on left of 'RenderTypes' when no variable is declared
   CppPrimitiveRenderer.vcxproj -> C:\Users\disckord\Desktop\Complex Game Systems\workspace\CppPrimitiveRenderer\CppPrimitiveRenderer\CppPrimitiveRenderer\bin\Debug\CppPrimitiveRenderer.exe

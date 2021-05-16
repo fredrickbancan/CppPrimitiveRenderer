@@ -10,8 +10,8 @@ public:
 	Camera(glm::vec3 pos, float pitch, float yaw);
 	Camera(glm::vec3 pos);
 	~Camera();
-	virtual void onWorldFixedUpdate(float timeStep);
-	virtual void onUpdate(float ptnt, float deltaTime);
+	virtual void onFixedUpdate(float timeStep);
+	virtual void onUpdate(float ptnt);
 	glm::vec3 getPosition() { return position; }
 	glm::vec3 getLerpPosition(float ptnt) { return prevTickPosition + (position - prevTickPosition) * ptnt; }
 	float getYaw() { return yaw; }
@@ -26,7 +26,9 @@ public:
 	void setFov(float fov);
 	void setNearPlane(float np);
 	void setFarPlane(float fp);
-
+	void setPos(glm::vec3 newPos);
+	void rotatePitch(float degrees) { pitch += degrees; }
+	void rotateYaw(float degrees) { yaw += degrees; }
 	/*Calcultes projection matrix. Should be called each time the aspect ratio, fov or draw distance changes.*/
 	void makeProjectionMatrix();
 
@@ -34,9 +36,9 @@ public:
 protected:
 	float farPlane = 1000.0F;
 	float nearPlane = 0.1F;
-	float fov = 75.0F;
-	float yaw;
-	float pitch;
+	float fov = 60.0F;
+	float yaw = -90.0F;
+	float pitch = 0;
 	glm::vec3 prevTickPosition;
 	glm::vec3 position;
 	glm::vec3 frontVec;
