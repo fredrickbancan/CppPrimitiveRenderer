@@ -1340,5 +1340,6 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="src\Logger.h" />
+    <None Include="res\POINT_SPHERES.shader" />
   </ItemGroup>
 </Project>

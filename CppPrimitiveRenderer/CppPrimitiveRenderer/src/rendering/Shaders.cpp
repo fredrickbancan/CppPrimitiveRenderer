@@ -1,6 +1,4 @@
-#define GLEW_STATIC
 #include "GL/glew.h"
-#include "GLFW/glfw3.h"
 #include "Shaders.h"
 #include <fstream>
 #include <sstream>
@@ -213,6 +211,10 @@ void Shader::setUniform3f(const std::string& name, float v0, float v1, float v2)
 void Shader::setUniform3f(const std::string& name, glm::vec3& vec)
 {
 	glUniform3f(getUniformLocation(name), vec.x, vec.y, vec.z);
+}
+void Shader::setUniform2f(const std::string& name, glm::vec2& vec)
+{
+	glUniform2f(getUniformLocation(name), vec.x, vec.y);
 }
 
 void Shader::setUniform1i(const std::string& name, int value)

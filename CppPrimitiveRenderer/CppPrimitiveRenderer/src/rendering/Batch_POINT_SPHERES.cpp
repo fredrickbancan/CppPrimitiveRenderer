@@ -1,6 +1,4 @@
-#define GLEW_STATIC
 #include "GL/glew.h"
-#include "GLFW/glfw3.h"
 #include "Batch_POINT_SPHERES.h"
 #include "VertexArrayObject.h"
 #include "Shaders.h"
@@ -56,10 +54,12 @@ void Batch_POINT_SPHERES::updateBuffers()
 	vao->updateBuffer(0, (const void*)&data[0], addedItter * PointSphere::sizeBytes);
 }
 
-void Batch_POINT_SPHERES::updateUniforms(glm::mat4x4 proj, glm::mat4x4 view, float lerpFactor)
+void Batch_POINT_SPHERES::updateUniforms(glm::mat4x4 proj, glm::mat4x4 view, glm::vec2 viewPortSize, float lerpFactor)
 {
+	batchShader->bind();
 	batchShader->setUniformMat4f("projMatrix", proj);
 	batchShader->setUniformMat4f("viewMatrix", view);
+	batchShader->setUniform2f("viewPortSize", viewPortSize);
 	batchShader->setUniform1f("lerpFactor", lerpFactor);
 }
 
@@ -73,7 +73,7 @@ void Batch_POINT_SPHERES::drawBatch()
 void Batch_POINT_SPHERES::loadShader(class Logger* loggerRef)
 {
 	if (batchShader != nullptr)return;
-	batchShader = new Shader("/res/POINT_SPHERES.shader", loggerRef);
+	batchShader = new Shader("res/POINT_SPHERES.shader", loggerRef);
 }
 
 void Batch_POINT_SPHERES::deleteShader()

@@ -1,6 +1,4 @@
-#define GLEW_STATIC
 #include "GL/glew.h"
-#include "GLFW/glfw3.h"
 #include "VertexBuffer.h"
 VertexBuffer::VertexBuffer(VertexBufferLayout& layout)
 {
@@ -8,11 +6,6 @@ VertexBuffer::VertexBuffer(VertexBufferLayout& layout)
     glGenBuffers(1, &bufferInt);
     glBindBuffer(GL_ARRAY_BUFFER, bufferInt);
     this->layout = layout;
-}
-
-VertexBuffer::~VertexBuffer()
-{
-    glDeleteBuffers(1, &bufferInt);
 }
 
 void VertexBuffer::initDynamic(int initialByteSize)
@@ -39,4 +32,9 @@ void VertexBuffer::updateData(const void* data, int size)
 void VertexBuffer::bind()
 {
     glBindBuffer(GL_ARRAY_BUFFER, bufferInt);
+}
+
+void VertexBuffer::destroy()
+{
+    glDeleteBuffers(1, &bufferInt);
 }

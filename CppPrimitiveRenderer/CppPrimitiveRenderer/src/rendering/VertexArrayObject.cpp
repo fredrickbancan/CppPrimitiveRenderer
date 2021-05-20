@@ -7,6 +7,11 @@ VertexArrayObject::VertexArrayObject()
 
 VertexArrayObject::~VertexArrayObject()
 {
+	for (std::vector<VertexBuffer>::iterator i = vbos.begin(); i != vbos.end(); i++)
+	{
+		i->destroy();
+	}
+	glDeleteVertexArrays(1, &vaoID);
 }
 
 void VertexArrayObject::beginBuilding()
@@ -25,17 +30,15 @@ void VertexArrayObject::finishBuilding()
 {
 	for (std::vector<VertexBuffer>::iterator i = vbos.begin(); i != vbos.end(); i++)
 	{
-		VertexBuffer vboAt = *i;
-		vboAt.bind();
+		i->bind();
 		int offset = 0;
 		int attribIterator = 0;
-		for (std::vector<VertexBufferElement>::const_iterator j = vboAt.getLayout().getElements().begin(); j != vboAt.getLayout().getElements().end(); j++)
+		for (std::vector<VertexBufferElement>::const_iterator j = i->getLayout().getElements().begin(); j != i->getLayout().getElements().end(); j++)
 		{
-			VertexBufferElement vboEAt = *j;
 			glEnableVertexAttribArray(attribIterator);
-			glVertexAttribPointer(attribIterator, vboEAt.count, (GLenum)vboEAt.type, (GLboolean)vboEAt.normalized,  (GLsizei)vboAt.getLayout().getStride(), (const void*)offset);
+			glVertexAttribPointer(attribIterator, j->count, (GLenum)j->type, (GLboolean)j->normalized,  (GLsizei)i->getLayout().getStride(), (const void*)offset);
 			attribIterator++;
-			offset += vboEAt.count * VertexBufferElement::getSizeOfType(vboEAt.type);
+			offset += j->count * VertexBufferElement::getSizeOfType(j->type);
 		}
 	}
 }

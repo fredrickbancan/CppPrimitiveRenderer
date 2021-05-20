@@ -35,11 +35,11 @@ public:
 		elements.push_back({ vertexAttribPtrType, count, (unsigned char)normalized });
 		stride += count * VertexBufferElement::getSizeOfType(vertexAttribPtrType);
 	}
-	const std::vector<VertexBufferElement> getElements() const
+    std::vector<VertexBufferElement>& getElements()
 	{
 		return elements;
 	}
-	unsigned int getStride() const
+	unsigned int getStride()
 	{
 		return stride;
 	}

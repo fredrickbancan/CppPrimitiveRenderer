@@ -27,7 +27,6 @@ bool GraphicsWindow::init()
 	}
 	;
 	logger->notify("Initializing Graphics Window...");
-	logger->notify2("Current working directory is:", "bruh");
 	windowHandle = renderer->init(currentWidth, currentHeight, title);
 	if (!windowHandle)
 	{
@@ -58,6 +57,11 @@ void GraphicsWindow::setViewerPos(float x, float y, float z)
 	viewer->setPos({ x,y,z });
 }
 
+void GraphicsWindow::offsetViewerPos(float x, float y, float z)
+{
+	viewer->addPos({ x,y,z });
+}
+
 void GraphicsWindow::rotateViewerPitch(float degrees)
 {
 	viewer->rotatePitch(degrees);
@@ -81,7 +85,7 @@ void GraphicsWindow::onUpdateAndDraw(float lerpFactor)
 		return;
 	}
 	viewer->onUpdate(lerpFactor);
-	renderer->drawAll(viewer, lerpFactor);
+	renderer->drawAll(windowHandle, viewer, lerpFactor);
 	renderer->swapAndPoll(windowHandle);
 }
 

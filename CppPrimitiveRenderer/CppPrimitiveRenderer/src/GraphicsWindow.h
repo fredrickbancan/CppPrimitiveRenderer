@@ -9,6 +9,7 @@ public:
 	void setViewerNearPlane(float near);
 	void setViewerFov(float fov);
 	void setViewerPos(float x, float y, float z);
+	void offsetViewerPos(float x, float y, float z);
 	void rotateViewerPitch(float degrees);
 	void rotateViewerYaw(float degrees);
 	void onFixedUpdate(float timeStep);

@@ -74,6 +74,11 @@ void Camera::setPos(glm::vec3 newPos)
 	position = newPos;
 }
 
+void Camera::addPos(glm::vec3 p)
+{
+	position += p;
+}
+
 void Camera::makeProjectionMatrix()
 {
 	projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);

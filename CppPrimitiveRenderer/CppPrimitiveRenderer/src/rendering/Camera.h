@@ -27,6 +27,7 @@ public:
 	void setNearPlane(float np);
 	void setFarPlane(float fp);
 	void setPos(glm::vec3 newPos);
+	void addPos(glm::vec3 p);
 	void rotatePitch(float degrees) { pitch += degrees; }
 	void rotateYaw(float degrees) { yaw += degrees; }
 	/*Calcultes projection matrix. Should be called each time the aspect ratio, fov or draw distance changes.*/

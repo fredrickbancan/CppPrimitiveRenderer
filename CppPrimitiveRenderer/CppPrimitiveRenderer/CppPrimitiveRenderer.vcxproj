@@ -467,6 +467,7 @@
     <ClInclude Include="src\RenderTypes.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\POINT_SPHERES.shader" />
     <None Include="src\glm\detail\func_common.inl" />
     <None Include="src\glm\detail\func_common_simd.inl" />
     <None Include="src\glm\detail\func_exponential.inl" />
