@@ -1,4 +1,5 @@
 #pragma once
+
 struct GLFWwindow;
 /*Abstract object providing basic functions for basic rendering and user input.*/
 class GraphicsWindow

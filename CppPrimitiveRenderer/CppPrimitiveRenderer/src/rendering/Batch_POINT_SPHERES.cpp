@@ -75,7 +75,7 @@ void Batch_POINT_SPHERES::drawBatch()
 void Batch_POINT_SPHERES::loadShader(class Logger* loggerRef)
 {
 	if (batchShader != nullptr)return;
-	batchShader = new Shader("res/POINT_SPHERES.shader", loggerRef);
+	batchShader = new Shader("shaders/POINT_SPHERES.shader", loggerRef);
 }
 
 void Batch_POINT_SPHERES::deleteShader()

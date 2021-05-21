@@ -30,7 +30,7 @@ class VertexBufferLayout
 private:
 	std::vector<VertexBufferElement> elements;
 	/*stride holds the size in bytes of elements we push to the layout.*/
-	int stride;
+	int stride = 0;
 public:
 	void add(int vertexAttribPtrType, int count, bool normalized)
 	{

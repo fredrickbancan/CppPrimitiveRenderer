@@ -87,7 +87,7 @@ void Batch_CUBES::deleteBatch()
 void Batch_CUBES::loadShader(Logger* loggerRef)
 {
 	if (batchShader != nullptr)return;
-	batchShader = new Shader("res/CUBES.shader", "res/CUBES_TESS.shader", loggerRef);
+	batchShader = new Shader("shaders/CUBES.shader", "shaders/CUBES_TESS.shader", loggerRef);
 }
 
 void Batch_CUBES::deleteShader()

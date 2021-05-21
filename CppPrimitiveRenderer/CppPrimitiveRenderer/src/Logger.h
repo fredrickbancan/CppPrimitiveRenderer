@@ -1,4 +1,5 @@
 #pragma once
+
 /*This class is created in an attempt to avoid including <iostream> in more files than needed. Which also looks cleaner.*/
 class Logger
 {

@@ -6,7 +6,6 @@
 #include <vector>
 #include <ctime>
 using namespace std;
-
 /*for randomizing primitive colors*/
 float rndFloat()
 {
@@ -36,9 +35,10 @@ int main(void)
 	test->setBackgroundColor(0.1F,0.5F,0.6F);
 	float moveSpeed = 0.1F;
 	float mouseSensitivity = 0.05F;
+	float primitiveAddDistance = 24.0F;
 	bool paused = false;
 	bool pauseButtonAlreadyDown = false;
-	srand(time(0));
+	srand((unsigned int)time(0));
 
 	/*adding a few initial primitives*/
 	primitives.push_back({ RenderTypes::POINT_SPHERES, 0, 0, -15, 0.5F, 0, 0, 0.3F, 0.5F, 1, 1 });
@@ -51,16 +51,6 @@ int main(void)
 	/*Game/Application Logic Loop. Will run untill window closes or user presses escape.*/
 	while (!test->isWindowBeingClosed() && !input->isKeyDown(INPUT_KEY_ESCAPE))
 	{
-
-		/*request renders for all stored primitives.*/
-		test->beginRenderRequests();
-		for (vector<Primitive>::iterator i = primitives.begin(); i != primitives.end(); i++)
-		{
-			const Primitive& var = *i;
-			test->requestRender(var.type, var.posX, var.posY, var.posZ, var.sizeX, var.sizeY, var.sizeZ, var.colorR, var.colorG, var.colorB, var.colorA);
-		}
-		test->endRenderRequests();
-
 		/*Process user pausing application*/
 		bool pauseButtonDown = false;
 		if ((pauseButtonDown = input->isKeyDown(INPUT_KEY_E)) && !pauseButtonAlreadyDown)
@@ -82,8 +72,8 @@ int main(void)
 			/*rotate camera based on mouse movement*/
 			double dx, dy;
 			input->getMouseDeltas(&dx, &dy);
-			test->rotateViewerYaw(dx * mouseSensitivity);
-			test->rotateViewerPitch(dy * -mouseSensitivity);
+			test->rotateViewerYaw((float)dx * mouseSensitivity);
+			test->rotateViewerPitch((float)dy * -mouseSensitivity);
 
 			/*move camerea based on w,a,s,d,space,ctrl presses.*/
 			test->moveViewerFowards(moveSpeed * ((int)input->isKeyDown(INPUT_KEY_W) - (int)input->isKeyDown(INPUT_KEY_S)));
@@ -94,7 +84,9 @@ int main(void)
 			float x, y, z, fx, fy, fz;
 			test->getViewerPos(&x, &y, &z);
 			test->getViewerFrontDirection(&fx, &fy, &fz);
-
+			fx *= primitiveAddDistance;
+			fy *= primitiveAddDistance;
+			fz *= primitiveAddDistance;
 			/*spawn randomized sphere or cube depending on left or right mouse button pressed.*/
 			if (input->isMouseButtonDown(INPUT_MOUSE_BUTTON_1))
 			{
@@ -105,6 +97,16 @@ int main(void)
 				primitives.push_back({ RenderTypes::CUBES, x + fx, y + fy, z + fz, 1 + rndFloat() * 2, 1 + rndFloat() * 2, 1 + rndFloat() * 2, rndFloat(), rndFloat(),  rndFloat(), 1 });
 			}
 		}
+
+		/*request renders for all stored primitives.*/
+		test->beginRenderRequests();
+		for (vector<Primitive>::iterator i = primitives.begin(); i != primitives.end(); i++)
+		{
+			const Primitive& var = *i;
+			test->requestRender(var.type, var.posX, var.posY, var.posZ, var.sizeX, var.sizeY, var.sizeZ, var.colorR, var.colorG, var.colorB, var.colorA);
+		}
+		test->endRenderRequests();
+
 		/*call update functions for graphics window*/
 		test->onFixedUpdate(0.1F);
 		input->update();
@@ -117,5 +119,6 @@ int main(void)
 	test->close();
 	delete test;
 	delete input;
+	system("PAUSE");
 	return 0;
 }
