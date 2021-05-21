@@ -1,1 +1,32 @@
-﻿
+﻿  main.cpp
+C:\Users\disckord\Desktop\Complex Game Systems\workspace\CppPrimitiveRenderer\CppPrimitiveRenderer\CppPrimitiveRenderer\src\RenderTypes.h(8,2): warning C4091: 'static ': ignored on left of 'RenderTypes' when no variable is declared
+C:\Users\disckord\Desktop\Complex Game Systems\workspace\CppPrimitiveRenderer\CppPrimitiveRenderer\DemoApp\src\main.cpp(41,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\disckord\Desktop\Complex Game Systems\workspace\CppPrimitiveRenderer\CppPrimitiveRenderer\DemoApp\src\main.cpp(85,29): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\disckord\Desktop\Complex Game Systems\workspace\CppPrimitiveRenderer\CppPrimitiveRenderer\DemoApp\src\main.cpp(86,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+main.obj : error LNK2019: unresolved external symbol "public: __thiscall GraphicsWindow::GraphicsWindow(int,int,char const *)" (??0GraphicsWindow@@QAE@HHPBD@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: __thiscall GraphicsWindow::~GraphicsWindow(void)" (??1GraphicsWindow@@QAE@XZ) referenced in function "public: void * __thiscall GraphicsWindow::`scalar deleting destructor'(unsigned int)" (??_GGraphicsWindow@@QAEPAXI@Z)
+main.obj : error LNK2019: unresolved external symbol "public: bool __thiscall GraphicsWindow::init(void)" (?init@GraphicsWindow@@QAE_NXZ) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall GraphicsWindow::moveViewerFowards(float)" (?moveViewerFowards@GraphicsWindow@@QAEXM@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall GraphicsWindow::moveViewerUpwards(float)" (?moveViewerUpwards@GraphicsWindow@@QAEXM@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall GraphicsWindow::strafeViewerRight(float)" (?strafeViewerRight@GraphicsWindow@@QAEXM@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall GraphicsWindow::rotateViewerPitch(float)" (?rotateViewerPitch@GraphicsWindow@@QAEXM@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall GraphicsWindow::rotateViewerYaw(float)" (?rotateViewerYaw@GraphicsWindow@@QAEXM@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall GraphicsWindow::getViewerPos(float *,float *,float *)" (?getViewerPos@GraphicsWindow@@QAEXPAM00@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall GraphicsWindow::getViewerFrontDirection(float *,float *,float *)" (?getViewerFrontDirection@GraphicsWindow@@QAEXPAM00@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall GraphicsWindow::onFixedUpdate(float)" (?onFixedUpdate@GraphicsWindow@@QAEXM@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall GraphicsWindow::onUpdateAndDraw(float)" (?onUpdateAndDraw@GraphicsWindow@@QAEXM@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall GraphicsWindow::beginRenderRequests(void)" (?beginRenderRequests@GraphicsWindow@@QAEXXZ) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall GraphicsWindow::requestRender(int,float,float,float,float,float,float,float,float,float,float)" (?requestRender@GraphicsWindow@@QAEXHMMMMMMMMMM@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall GraphicsWindow::endRenderRequests(void)" (?endRenderRequests@GraphicsWindow@@QAEXXZ) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall GraphicsWindow::setBackgroundColor(float,float,float)" (?setBackgroundColor@GraphicsWindow@@QAEXMMM@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: bool __thiscall GraphicsWindow::isWindowBeingClosed(void)" (?isWindowBeingClosed@GraphicsWindow@@QAE_NXZ) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall GraphicsWindow::close(void)" (?close@GraphicsWindow@@QAEXXZ) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: __thiscall Input::Input(struct GLFWwindow *)" (??0Input@@QAE@PAUGLFWwindow@@@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: __thiscall Input::~Input(void)" (??1Input@@QAE@XZ) referenced in function "public: void * __thiscall Input::`scalar deleting destructor'(unsigned int)" (??_GInput@@QAEPAXI@Z)
+main.obj : error LNK2019: unresolved external symbol "public: bool __thiscall Input::isKeyDown(int)" (?isKeyDown@Input@@QAE_NH@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: bool __thiscall Input::isMouseButtonDown(int)" (?isMouseButtonDown@Input@@QAE_NH@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall Input::getMouseDeltas(double *,double *)" (?getMouseDeltas@Input@@QAEXPAN0@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall Input::setGrabMouse(bool)" (?setGrabMouse@Input@@QAEX_N@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall Input::setMouseVisible(bool)" (?setMouseVisible@Input@@QAEX_N@Z) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "public: void __thiscall Input::update(void)" (?update@Input@@QAEXXZ) referenced in function _main
+C:\Users\disckord\Desktop\Complex Game Systems\workspace\CppPrimitiveRenderer\CppPrimitiveRenderer\DemoApp\bin\Debug\DemoApp.exe : fatal error LNK1120: 26 unresolved externals

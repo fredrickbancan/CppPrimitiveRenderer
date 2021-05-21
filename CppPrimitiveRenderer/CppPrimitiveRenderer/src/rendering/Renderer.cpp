@@ -109,6 +109,10 @@ GLFWwindow* Renderer::init(int windowWidth, int windowHeight, const char* title)
     glViewport(0, 0, windowWidth, windowHeight);
     glEnable(GL_POINT_SPRITE);
     glEnable(GL_PROGRAM_POINT_SIZE);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glEnable(GL_CULL_FACE);
+    glfwSwapInterval(0);
 	logger->notify2("GLEW initialized with OpenGL Version:", glfwGetVersionString());
 	hasInitialized = true;
 
@@ -150,6 +154,7 @@ void Renderer::requestRender(int renderType, glm::vec3 pos, glm::vec3 size, glm:
     }
     //add new batch
     Batch* b = BatchUtil::makeBatch(renderType);
+    if (b == nullptr)return;
     b->addToBatch(pos, size, color);
     batches[renderType] = b;
 }
@@ -181,18 +186,25 @@ void Renderer::endRenderRequests()
 
 void Renderer::drawAll(GLFWwindow* windowHandle, Camera* viewer, float lerpFactor)
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glm::vec2 prevViewPort = viewPortSize;
     viewPortSize = getViewPortSize(windowHandle);
-    if ((viewPortSize.x != prevViewPort.x || viewPortSize.y != prevViewPort.y) && viewPortSize.x + viewPortSize.y > 0)
+    if (viewPortSize.x != prevViewPort.x || viewPortSize.y != prevViewPort.y)
     {
         glViewport(0, 0, (int)viewPortSize.x, (int)viewPortSize.y);
+        if (viewPortSize.y > 0.01F)viewer->setAspectRatio(viewPortSize.x / viewPortSize.y);
     }
     for (std::unordered_map<int, Batch*>::iterator i = batches.begin(); i != batches.end(); i++)
     {
         i->second->updateUniforms(viewer->getProjectionMatrix(), viewer->getViewMatrix(), viewPortSize, lerpFactor);
         i->second->drawBatch();
     }
+}
+
+void Renderer::setClearColor(glm::vec3 color)
+{
+    clearColor = color;
+    glClearColor(clearColor.r, clearColor.g, clearColor.b, 1.0F);
 }
 
 void Renderer::swapAndPoll(GLFWwindow* windowHandle)

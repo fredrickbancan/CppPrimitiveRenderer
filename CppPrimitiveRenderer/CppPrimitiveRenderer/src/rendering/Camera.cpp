@@ -43,9 +43,13 @@ void Camera::lookAt(glm::vec3 pos, float ptnt /*= 1.0F*/)
 void Camera::updateVectors(float ptnt /*= 1.0F*/)
 {
 	glm::vec3 camDirectionVector;
-	camDirectionVector.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	camDirectionVector.x = cos(glm::radians(yaw));
+	camDirectionVector.y = 0;
+	camDirectionVector.z = sin(glm::radians(yaw));
+	flatFrontVec = glm::normalize(camDirectionVector);
+	camDirectionVector.x *= cos(glm::radians(pitch));
 	camDirectionVector.y = sin(glm::radians(pitch));
-	camDirectionVector.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	camDirectionVector.z *= cos(glm::radians(pitch));
 	frontVec = glm::normalize(camDirectionVector);
 	rightVec = glm::normalize(glm::cross(frontVec, upVec));
 	viewMatrix = glm::lookAt(getLerpPosition(ptnt), getLerpPosition(ptnt) + frontVec, upVec);
@@ -77,6 +81,28 @@ void Camera::setPos(glm::vec3 newPos)
 void Camera::addPos(glm::vec3 p)
 {
 	position += p;
+}
+
+void Camera::moveFowards(float distance)
+{
+	position += distance * flatFrontVec;
+}
+
+void Camera::moveUp(float distance)
+{
+	position.y += distance;
+}
+
+void Camera::strafeRight(float distance)
+{
+	position += glm::normalize(glm::cross(frontVec, upVec)) * distance;
+}
+
+void Camera::rotatePitch(float degrees)
+{
+	pitch += degrees;
+	if (pitch >= 90) { pitch = 89.9F; return; }
+	if (pitch <= -90)pitch = -89.9F;
 }
 
 void Camera::makeProjectionMatrix()

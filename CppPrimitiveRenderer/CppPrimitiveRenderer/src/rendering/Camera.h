@@ -28,11 +28,15 @@ public:
 	void setFarPlane(float fp);
 	void setPos(glm::vec3 newPos);
 	void addPos(glm::vec3 p);
-	void rotatePitch(float degrees) { pitch += degrees; }
+	void moveFowards(float distance);
+	void moveUp(float distance);
+	void strafeRight(float distance);
+	void rotatePitch(float degrees);
+	glm::vec3 getCamPos() const { return position; }
+	glm::vec3 getCamFrontVec() const { return frontVec; }
 	void rotateYaw(float degrees) { yaw += degrees; }
 	/*Calcultes projection matrix. Should be called each time the aspect ratio, fov or draw distance changes.*/
 	void makeProjectionMatrix();
-
 	void setAspectRatio(float ar) { aspectRatio = ar; makeProjectionMatrix(); }
 protected:
 	float farPlane = 1000.0F;
@@ -42,10 +46,11 @@ protected:
 	float pitch = 0;
 	glm::vec3 prevTickPosition;
 	glm::vec3 position;
+	glm::vec3 flatFrontVec;
 	glm::vec3 frontVec;
 	glm::vec3 rightVec;
 	const glm::vec3 upVec = {0,1,0};
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
-	float aspectRatio = 1920 / 1080;
+	float aspectRatio = 1.0F;
 };

@@ -159,22 +159,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Logger.cpp" />
     <ClCompile Include="src\rendering\BatchUtil.cpp" />
+    <ClCompile Include="src\rendering\Batch_CUBES.cpp" />
     <ClCompile Include="src\rendering\Batch_POINT_SPHERES.cpp" />
     <ClCompile Include="src\rendering\Camera.cpp" />
     <ClCompile Include="src\rendering\Renderer.cpp" />
     <ClCompile Include="src\GraphicsWindow.cpp" />
-    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\rendering\Shaders.cpp" />
     <ClCompile Include="src\rendering\VertexArrayObject.cpp" />
     <ClCompile Include="src\rendering\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Input.h" />
+    <ClInclude Include="src\InputCodes.h" />
+    <ClInclude Include="src\LerpPrimitive.h" />
+    <ClInclude Include="src\Primitive.h" />
     <ClInclude Include="src\rendering\Batch.h" />
     <ClInclude Include="src\rendering\BatchUtil.h" />
+    <ClInclude Include="src\rendering\Batch_CUBES.h" />
     <ClInclude Include="src\rendering\Batch_POINT_SPHERES.h" />
     <ClInclude Include="src\rendering\Camera.h" />
+    <ClInclude Include="src\rendering\CubeFace.h" />
     <ClInclude Include="src\rendering\PointSphere.h" />
     <ClInclude Include="src\rendering\Renderer.h" />
     <ClInclude Include="src\GraphicsWindow.h" />
@@ -467,6 +474,8 @@
     <ClInclude Include="src\RenderTypes.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\CUBES.shader" />
+    <None Include="res\CUBES_TESS.shader" />
     <None Include="res\POINT_SPHERES.shader" />
     <None Include="src\glm\detail\func_common.inl" />
     <None Include="src\glm\detail\func_common_simd.inl" />

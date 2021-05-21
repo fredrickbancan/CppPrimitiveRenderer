@@ -21,6 +21,8 @@ unsigned int Shader::compileShaderOfType(unsigned int type, const std::string& s
 		 glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
 		char* message =  (char*)_malloca(length * sizeof(char));
 		 glGetShaderInfoLog(id, length, &length, message);
+		 logger->notify2("VertFrag dir:", vertFragFilePath.c_str());
+		 logger->notify2("Tess dir:", tessFilePath.c_str());
 		logger->errorPrint2(type == GL_VERTEX_SHADER ? "Failed to compile vertex  shader!" : type == GL_FRAGMENT_SHADER ? "Failed to compile fragment  shader!" : type == GL_TESS_CONTROL_SHADER ? "Failed to compile tess controll shader!" : "Failed to compile tess eval  shader!", message);
 		 glDeleteShader(id);
 		return 0;
@@ -82,7 +84,8 @@ ShaderProgramSource Shader::parseVertFragShaderFile(const std::string& vertFragP
 		logger->errorPrint2("Could not read fragment/vertex shader from dir: ", vertFragPath.c_str());
 	}
 	std::string line;
-	std::stringstream ss[2];
+	std::stringstream vertStream;
+	std::stringstream fragStream;
 	ShaderProgramSource result;
 
 	//process each line and store source code based on token
@@ -103,14 +106,15 @@ ShaderProgramSource Shader::parseVertFragShaderFile(const std::string& vertFragP
 		}
 		else
 		{
-			ss[(int)type] << line << '\n';
+			std::stringstream & s = (type == ShaderEnum::VERTEX ? vertStream : fragStream);
+			s << line << '\n';
 		}
 	}
 
 	stream.close();
 
-	result.fragmentSource = ss[1].str();
-	result.vertexSource = ss[0].str();
+	result.fragmentSource = fragStream.str();
+	result.vertexSource = vertStream.str();
 
 	//this uses the shaderProgramSource struct in shaders.h
 	return result;
@@ -131,7 +135,8 @@ ShaderProgramSource Shader::parseTessShaderFile(const std::string& tessPath, Sha
 		logger->errorPrint2("Error: Could not read fragment/vertex shader from dir: ", tessPath.c_str());
 	}
 	std::string line;
-	std::stringstream ss[2];
+	std::stringstream contStream;
+	std::stringstream evalStream;
 	ShaderProgramSource result = fragVertSource;
 
 	//process each line and store source code based on token
@@ -152,14 +157,15 @@ ShaderProgramSource Shader::parseTessShaderFile(const std::string& tessPath, Sha
 		}
 		else
 		{
-			ss[(int)type] << line << '\n';
+			std::stringstream& s = (type == ShaderEnum::CONT ? contStream : evalStream);
+			s << line << '\n';
 		}
 	}
 
 	stream.close();
 
-	result.tessContSource = ss[0].str();
-	result.tessEvalSource = ss[1].str();
+	result.tessContSource = contStream.str();
+	result.tessEvalSource = evalStream.str();
 
 	//this uses the shaderProgramSource struct in shaders.h
 	return result;
@@ -245,8 +251,6 @@ void Shader::setUniformMat4fArray(const std::string& name, int count, const floa
 	glUniformMatrix4fv(getUniformLocation(name), count, GL_FALSE, begin);
 }
 
-
-
 int Shader::getUniformLocation(const std::string& name) 
 {
 	/*looks for current uniform in cache. If its already there, returns the uniform location int. This means we dont have to do the gl call every frame saving resources*/
@@ -255,12 +259,7 @@ int Shader::getUniformLocation(const std::string& name)
 		return uniformLocationCache[name];
 	}
 	int location = glGetUniformLocation(shaderId, name.c_str());
-	if (location == -1)
-	{
-		logger->notify2("Shader warning! Uniform name doesnt exist: ", name.c_str());
-	}
-		uniformLocationCache[name] = location;
-	
+	uniformLocationCache[name] = location;
 	return location;
 }
 

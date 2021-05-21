@@ -1,8 +1,8 @@
 #pragma once
 struct PointSphere
 {
-    static const int sizeBytes = 28;
+    static const int sizeBytes = 32;
 	float posx, posy, posz;
 	float radius;
-	float colorR, colorG, colorB;
+	float colorR, colorG, colorB, colorA;
 };

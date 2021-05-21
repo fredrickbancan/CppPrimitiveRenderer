@@ -15,6 +15,7 @@ public:
 	void requestRenderLerp(int renderType, glm::vec3 pos, glm::vec3 size, glm::vec4 color, glm::vec3 prevPos, glm::vec3 prevSize, glm::vec4 prevColor);
 	void endRenderRequests();
 	void drawAll(struct GLFWwindow* windowHandle, class Camera* viewer, float lerpFactor);
+	void setClearColor(glm::vec3 color);
 	void swapAndPoll(struct GLFWwindow* windowHandle);
 	bool shouldWindowClose(struct GLFWwindow* windowHandle);
 	void destroyWindow(struct GLFWwindow* windowHandle);
@@ -23,7 +24,8 @@ public:
 private:
 	class Logger* logger = nullptr;
 	bool hasInitialized = false;
-	glm::vec2 viewPortSize;
+	glm::vec2 viewPortSize = {100,100};
+	glm::vec3 clearColor = {0,0,0};
 	std::unordered_map<int, class Batch*> batches;
 };
 

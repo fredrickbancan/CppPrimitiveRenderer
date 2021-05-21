@@ -27,13 +27,15 @@ void Batch_POINT_SPHERES::reset()
 
 void Batch_POINT_SPHERES::addToBatch(glm::vec3 pos, glm::vec3 size, glm::vec4 color)
 {
-	data.push_back({pos.x, pos.y, pos.z, size.x, color.x, color.y, color.z});
+	if (color.w <= 0.001F)return;
+	data.push_back({pos.x, pos.y, pos.z, size.x, color.x, color.y, color.z, color.w});
 	addedItter++;
 }
 
 void Batch_POINT_SPHERES::addToBatchLerp(glm::vec3 pos, glm::vec3 size, glm::vec4 color, glm::vec3 prevPos, glm::vec3 prevSize, glm::vec4 prevColor)
 {
-	data.push_back({ pos.x, pos.y, pos.z, size.x, color.x, color.y, color.z });
+	if (color.w <= 0.001F)return;
+	data.push_back({ pos.x, pos.y, pos.z, size.x, color.x, color.y, color.z, color.w});
 	addedItter++;
 }
 
@@ -88,7 +90,7 @@ void Batch_POINT_SPHERES::buildBatch()
 	VertexBufferLayout vbl = VertexBufferLayout();
 	vbl.add(GL_FLOAT, 3, false);
 	vbl.add(GL_FLOAT, 1, false);
-	vbl.add(GL_FLOAT, 3, false);
+	vbl.add(GL_FLOAT, 4, false);
 	currentBufferByteCapacity = 2048;
 	vao->addDynamicBuffer(currentBufferByteCapacity, vbl);
 }

@@ -25,7 +25,7 @@ bool GraphicsWindow::init()
 		logger->errorPrint("init() called on an already initialized GraphicsWindow object!");
 		return false;
 	}
-	;
+	logger->notify("These messages come from the \"C++ Primitive Renderer\" library.");
 	logger->notify("Initializing Graphics Window...");
 	windowHandle = renderer->init(currentWidth, currentHeight, title);
 	if (!windowHandle)
@@ -62,6 +62,21 @@ void GraphicsWindow::offsetViewerPos(float x, float y, float z)
 	viewer->addPos({ x,y,z });
 }
 
+void GraphicsWindow::moveViewerFowards(float distance)
+{
+	viewer->moveFowards(distance);
+}
+
+void GraphicsWindow::moveViewerUpwards(float distance)
+{
+	viewer->moveUp(distance);
+}
+
+void GraphicsWindow::strafeViewerRight(float distance)
+{
+	viewer->strafeRight(distance);
+}
+
 void GraphicsWindow::rotateViewerPitch(float degrees)
 {
 	viewer->rotatePitch(degrees);
@@ -70,6 +85,22 @@ void GraphicsWindow::rotateViewerPitch(float degrees)
 void GraphicsWindow::rotateViewerYaw(float degrees)
 {
 	viewer->rotateYaw(degrees);
+}
+
+void GraphicsWindow::getViewerPos(float* x, float* y, float* z)
+{
+	glm::vec3 pos = viewer->getPosition();
+	*x = pos.x;
+	*y = pos.y;
+	*z = pos.z;
+}
+
+void GraphicsWindow::getViewerFrontDirection(float* x, float* y, float* z)
+{
+	glm::vec3 v = viewer->getCamFrontVec();
+	*x = v.x;
+	*y = v.y;
+	*z = v.z;
 }
 
 void GraphicsWindow::onFixedUpdate(float timeStep)
@@ -117,6 +148,11 @@ void GraphicsWindow::endRenderRequests()
 		return;
 	}
 	renderer->endRenderRequests();
+}
+
+void GraphicsWindow::setBackgroundColor(float r, float g, float b)
+{
+	renderer->setClearColor({ r,g,b });
 }
 
 bool GraphicsWindow::isWindowBeingClosed()

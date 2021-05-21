@@ -18,6 +18,6 @@ public:
 protected:
 	virtual void buildBatch() = 0;
 	int renderType = RenderTypes::NULL_TYPE;
-	int currentBufferByteCapacity = 0;
+	unsigned int currentBufferByteCapacity = 0;
 	class VertexArrayObject* vao;
 };

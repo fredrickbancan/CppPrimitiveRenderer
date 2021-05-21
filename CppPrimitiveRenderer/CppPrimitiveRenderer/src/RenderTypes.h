@@ -2,5 +2,7 @@
 static enum RenderTypes
 {
 	NULL_TYPE,
-	POINT_SPHERES
+	/*Point spheres use the size X parameter as their radius. The other two dimentions are ignored.*/
+	POINT_SPHERES,
+	CUBES
 };
